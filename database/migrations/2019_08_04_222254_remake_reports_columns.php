@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Assigns extends Migration
+class RemakeReportsColumns extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class Assigns extends Migration
      */
     public function up()
     {
-        Schema::create('assigns', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('project_id')->unsigned();
-            $table->datetime('start_date');
-            $table->datetime('end_date');
+         Schema::table('reports', function (Blueprint $table) {
+            $table->renameColumn('user_id', 'employee_id');
         });
     }
 
@@ -29,6 +25,8 @@ class Assigns extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assigns');
+         Schema::table('reports', function (Blueprint $table) {
+            $table->renameColumn('employee_id', 'user_id');
+        });
     }
 }
