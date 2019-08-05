@@ -10,9 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Customer;
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('test', function () {
+    $customers = Customer::find(1);
+    // foreach ($customers as $key => $value) {
+    //     echo $value;
+    // }
+    foreach ($customers -> projects as $projects) {
+        echo $projects->name;
+    }
 });
 
 

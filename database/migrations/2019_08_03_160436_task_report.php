@@ -14,8 +14,8 @@ class TaskReport extends Migration
     public function up()
     {
         Schema::create('task_report', function(Blueprint $table) {
-            $table->integer('task_id')->unique();
-            $table->integer('report_id')->unique();
+            $table->integer('task_id')->unsigned();
+            $table->integer('report_id')->unsigned();
             $table->text('note');
         });
     }
