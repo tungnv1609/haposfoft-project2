@@ -23,7 +23,7 @@ class TaskReportSeeder extends Seeder
             ['task_id'=>'4','report_id'=>'9','note'=>'Bao cao cho...'],
             ['task_id'=>'4','report_id'=>'10','note'=>'Bao cao cho...'],
             ['task_id'=>'4','report_id'=>'11','note'=>'Bao cao cho...'],
-            ['task_id'=>'5','report_id'=>'12','note'=>'Bao cao cho...'],
+            ['task_id'=>'5','report_id'=>'12','note'=>'Bao cao cho...']
         ]);
     }
 }

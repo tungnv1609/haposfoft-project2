@@ -11,11 +11,11 @@ class Task extends Model
    
     public function employee ()
     {
-        return $this->belongsTo('App\Employee','employee_id','id');
+        return $this->belongsTo(Employee::class);
     }
 
     public function report ()
     {
-        return $this->belongsToMany('App\Report');
+        return $this->belongsToMany(Report::class);
     }
 }

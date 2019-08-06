@@ -16,13 +16,18 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
-    $customers = Customer::find(1);
-    // foreach ($customers as $key => $value) {
-    //     echo $value;
-    // }
-    foreach ($customers -> projects as $projects) {
-        echo $projects->name;
+    $customers = Customer::find(7);
+    foreach ($customers->projects as $project)
+    {
+        echo $project->name;
     }
 });
 
+Route::get('test/index', function () {
+	return view('admin.index');
+});
 
+Route::get('login', 'LoginController@getLogin');
+Route::post('login', 'LoginController@postLogin');
+
+Route::get('home','HomeController@getIndex');
