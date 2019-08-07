@@ -17,6 +17,18 @@ class TaskReport extends Migration
             $table->integer('task_id')->unsigned();
             $table->integer('report_id')->unsigned();
             $table->text('note');
+            $table->timestamps();
+            $table->unique(['task_id','report_id']);
+//            $table
+//                ->foreign('task_id')
+//                ->references('id')
+//                ->on('tasks')
+//                ->onDelete('cascade');
+//            $table
+//                ->foreign('report_id')
+//                ->references('id')
+//                ->on('reports')
+//                ->onDelete('cascade');
         });
     }
 

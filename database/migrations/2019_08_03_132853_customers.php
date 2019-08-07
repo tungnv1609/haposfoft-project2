@@ -20,9 +20,10 @@ class Customers extends Migration
             $table->string('email', 50)->unique();
             $table->string('address', 100);
             $table->string('password', 100);
-            $table->string('create_by', 50);
-            $table->string('update_by',50);
-            $table->string('delete_by', 50);
+            $table->string('created_by', 50);
+            $table->string('updated_by',50);
+            $table->string('deleted_by', 50);
+            $table->rememberToken();
             $table->datetime('delete_at');
             $table->timestamps();
         });

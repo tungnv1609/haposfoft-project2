@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\User;
+use App\Customer;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
@@ -17,22 +17,18 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Customer::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
         'address' => $faker->address,
         'password' => Hash::make(str_random(8)),
-        'avatar' => Str::random(10),
-        'level' => $faker->numberBetween(0,1),
         'created_by' => $faker->name,
         'updated_by' => $faker->name,
-        'delete_by' => $faker->name,
+        'deleted_by' => $faker->name,
         'remember_token' => Str::random(10),
         'delete_at' => now(),
-//        'created_at ' => now(),
-//        'update_at' => now(),
     ];
 });
+

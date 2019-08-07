@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -49,8 +51,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:100'],
+            'phone'=> ['required'], 'numeric', 'max:11',
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:employees'],
+            'address' => ['required', 'string', 'max:100'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -69,4 +73,25 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-}
+
+    public function getRegister() {
+        return view('auth/register');
+    }
+
+    public function postRegister(Request $request) {
+        $allRequest  = $request->all();
+        $validator = $this->validator($allRequest);
+
+        if ($validator->fails()) {
+            return redirect('register')->withErrors($validator)->withInput();
+        } else {
+            if( $this->create($allRequest)) {
+                Session::flash('success', 'Đăng ký thành viên thành công!');
+                return redirect('register');
+            } else {
+                Session::flash('error', 'Đăng ký thành viên thất bại!');
+                return redirect('register');
+            }
+        }
+    }
+    }

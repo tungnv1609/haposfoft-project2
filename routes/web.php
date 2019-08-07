@@ -16,18 +16,40 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
-    $customers = Customer::find(7);
-    foreach ($customers->projects as $project)
+    $users = \App\User::find(7);
+    foreach ($users->porjects as $projects)
     {
-        echo $project->name;
+        echo $projects->name;
     }
+
 });
 
-Route::get('test/index', function () {
-	return view('admin.index');
+Route::get('admin', function () {
+	return view('admin.layout.index');
 });
+
+//Route::resource('user','UserController');
+
+
+Route::group(['prefix'=>'admin'], function () {
+
+    Route::group(['prefix'=>'user'], function (){
+        Route::get('list/user', 'ListUser@listUser');
+        Route::get('edit/user', 'ListUser@editUser');
+        Route::get('delete/user', 'ListUser@deleteUser');
+    });
+
+});
+
+Route::get('/home','HomeController@getIndex');
 
 Route::get('login', 'LoginController@getLogin');
 Route::post('login', 'LoginController@postLogin');
 
-Route::get('home','HomeController@getIndex');
+Route::get('register', 'Auth\RegisterController@getRegister');
+Route::post('register', 'Auth\RegisterController@postRegister');
+
+Route::get('logout', 'Auth\LogoutController@postRegister');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

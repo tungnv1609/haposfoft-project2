@@ -15,10 +15,14 @@ class Reports extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->text('note');
             $table->datetime('delete_at');
             $table->timestamps();
+//            $table
+//                ->foreign('user_id')
+//                ->references('id')
+//                ->on('users');
         });
     }
 

@@ -9,13 +9,13 @@ class Task extends Model
     protected $table = 'tasks';
     protected $fillable = ['id','employee_id','content','time','delete_at','create_at','update_at'];
    
-    public function employee ()
+    public function users ()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(User::class);
     }
 
     public function report ()
     {
-        return $this->belongsToMany(Report::class);
+        return $this->belongsToMany(Report::class,'task_report');
     }
 }

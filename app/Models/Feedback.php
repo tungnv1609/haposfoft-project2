@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     protected $table = 'feedbacks';
-    protected $fillable = ['id','customer_id','content','delete_at','create_at','update_at'];
+    protected $fillable = ['id','customer_id','content','delete_at','created_at','updated_at'];
 
-    public function viewByCustomer ()
+    public function customers ()
     {
         return $this->belongsTo (Customer::class);
     }
