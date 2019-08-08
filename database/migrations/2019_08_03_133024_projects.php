@@ -23,10 +23,10 @@ class Projects extends Migration
             $table->string('delete_by', 50);
             $table->datetime('delete_at');
             $table->timestamps();
-             $table
-                 ->foreign('customer_id')
-                 ->references('id')
-                 ->on('customers');
+//             $table
+//                 ->foreign('customer_id')
+//                 ->references('id')
+//                 ->on('customers');
         });
     }
 

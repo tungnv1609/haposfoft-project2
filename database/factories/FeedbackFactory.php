@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Feedback::class, function (Faker $faker) {
     return [
-        'customer_id' => $faker->numberBetween(1,20),
+        'customer_id' => App\Customer::all()->random()->id,
         'content' =>$faker->text(100),
         'delete_at' => now(),
     ];

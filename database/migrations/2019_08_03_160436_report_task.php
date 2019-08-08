@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Tasks extends Migration
+class ReportTask extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class Tasks extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->text('content');
-            $table->time('time');
-            $table->datetime('delete_at');
+        Schema::create('report_task', function(Blueprint $table) {
+            $table->integer('report_id')->unsigned();
+            $table->integer('task_id')->unsigned();
+            $table->text('note');
             $table->timestamps();
+            $table->unique(['report_id','task_id']);
         });
     }
 
@@ -30,6 +29,6 @@ class Tasks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('report_task');
     }
 }

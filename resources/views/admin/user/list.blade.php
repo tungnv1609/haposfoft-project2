@@ -19,43 +19,49 @@
 <body>
 <div class="app-container app-theme-white fixed-sidebar fixed-header">
     @include('admin.layout.header')
+
     <div class="app-main ml-2 mr-2">
-            <table class="table table-bordered p-0 ">
+        <table class="table table-bordered p-0 ">
+            <tr>
+                <th class="bg-secondary">ID</th>
+                <th class="bg-secondary">Name</th>
+                <th class="bg-secondary">Number Phone</th>
+                <th class="bg-secondary">Email</th>
+                <th class="bg-secondary">Address</th>
+                <th class="bg-secondary">Action</th>
+            </tr>
+            @foreach ($list_user as $user)
                 <tr>
-                    <th class="bg-secondary">ID</th>
-                    <th class="bg-secondary">Name</th>
-                    <th class="bg-secondary">Number Phone</th>
-                    <th class="bg-secondary">Email</th>
-                    <th class="bg-secondary">Address</th>
-                    <th class="bg-secondary">Action</th>
-                </tr>
-                @foreach ($list_user as $user)
-                    <tr>
-                        <td class="bg-light">{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td class="bg-light">{{ $user->phone }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td class="bg-light">{{ $user->address }}</td>
-                        <td>
-                            {{--                                        <form action="{{ route('user.destroy',$user->id) }}" method="POST">--}}
+                    <td class="bg-light">{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td class="bg-light">{{ $user->phone }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td class="bg-light">{{ $user->address }}</td>
+                    <td>
+{{--                        <form action="{{ route('user.destroy',$user->id) }}" method="POST">--}}
                             <form action="" method="POST">
-                                {{--                                            <a class="btn btn-info" href="{{ route('user.show',$user->id) }}">Show</a>--}}
-                                <a class="btn btn-info" href="">Create</a>
-
-                                {{--                                            <a class="btn btn-primary" href="{{ route('admin.user.edit.user',$user->id) }}">Edit</a>--}}
-                                <a class="btn btn-primary" href="">Edit</a>
-
+{{--                                <a class="btn btn-info" href="{{ route('user.show',$user->id) }}">Show</a>--}}
+                                                            <a class="btn btn-info" href="">Show</a>
+{{--                                <a class="btn btn-primary" href="{{ route('admin.user.edit.user',$user->id) }}">Edit</a>--}}
+                                                            <a class="btn btn-primary" href="">Edit</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </div>
-    {{ $list_user->links() }}
-
+    <div class="container-fluid">
+        <div class="col-lg-12 mt-3">
+            <div class="pull-right">
+                <a class="btn btn-light"> Back</a>
+{{--                <a class="btn btn-light" href="{{ route('admin/index') }}"> Back</a>--}}
+            </div>
+        </div>
+        {{ $list_user->links() }}
+    </div>
 </div>
 <script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" href="js/bootstrap.min.js"></script>

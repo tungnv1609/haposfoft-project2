@@ -33,10 +33,17 @@ Route::get('admin', function () {
 
 Route::group(['prefix'=>'admin'], function () {
 
-    Route::group(['prefix'=>'user'], function (){
-        Route::get('list/user', 'ListUser@listUser');
-        Route::get('edit/user', 'ListUser@editUser');
-        Route::get('delete/user', 'ListUser@deleteUser');
+//    Route::group(['prefix'=>'user'], function (){
+//        Route::get('list/user', 'ListUser@listUser');
+//        Route::get('edit/user', 'ListUser@editUser');
+//        Route::get('delete/user', 'ListUser@detroyUser');
+        Route::resource('user','UserController');
+//    });
+
+    Route::group(['prefix'=>'project'], function (){
+        Route::get('list/project', 'ProjectController@listProject');
+        Route::get('edit/project', 'ProjectController@editProject');
+        Route::get('delete/project', 'ProjectController@deleteProject');
     });
 
 });

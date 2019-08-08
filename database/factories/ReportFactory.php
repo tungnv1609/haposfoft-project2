@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Report::class, function (Faker $faker) {
     return [
-        'user_id' => $faker->numberBetween(1,20),
+        'user_id' => App\User::all()->random()->id,
         'note' => $faker->paragraph(5),
         'delete_at' => now(),
         ];

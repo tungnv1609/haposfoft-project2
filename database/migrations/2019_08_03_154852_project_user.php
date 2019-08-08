@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserRole extends Migration
+class ProjectUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,13 @@ class UserRole extends Migration
      */
     public function up()
     {
-        Schema::create('user_role', function (Blueprint $table) {
+        Schema::create('project_user', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('project_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('role_id')->unsigned();
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->timestamps();
-//            $table
-//                ->foreign('user_id')
-//                ->references('id')
-//                ->on('users')
-//                ->onDelete('cascade');
-//            $table
-//                ->foreign('role_id')
-//                ->references('id')
-//                ->on('roles')
-//                ->onDelete('cascade');
-
         });
     }
 
@@ -41,6 +30,6 @@ class UserRole extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_role');
+        Schema::dropIfExists('project_user');
     }
 }

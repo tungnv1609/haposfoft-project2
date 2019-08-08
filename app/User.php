@@ -39,15 +39,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function roles ()
+    function roleUsers ()
     {
-        return $this->belongsToMany(Role::class,'user_role');
+        return $this->hasMany(RoleUser::class);
     }
 
-    function projects ()
-    {
-        return $this->belongsToMany(Project::class,'assign');
-    }
+//    function projects ()
+//    {
+//        return $this->belongsToMany(Project::class);
+//    }
 
     function reports ()
     {

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(\App\Project::class, function (Faker $faker) {
     return [
-        'customer_id' => $faker->numberBetween(1,20),
+        'customer_id' => App\Customer::all()->random()->id,
         'name' => $faker->name,
         'detail' => $faker->paragraph(10),
         'create_by' => $faker->name,

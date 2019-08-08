@@ -28,7 +28,7 @@
                         <li class="app-sidebar__heading">Dashboards</li>
                         <li>
                             <a href="admin/user/list/user">User</a>
-                            <a href="#">Customer</a>
+                            <a href="admin/project/list/project">Customer</a>
                             <a href="#">Project</a>
                             <a href="#">Report</a>
                             <a href="#">Task</a>

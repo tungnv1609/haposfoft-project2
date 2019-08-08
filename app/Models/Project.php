@@ -14,9 +14,9 @@ class Project extends Model
         return $this->belongsTo (Customer::class);
     }
 
-    public function users ()
+    public function roleUsers ()
     {
-        return $this->belongsToMany(User::class,'assigns');
+        return $this->hasMany(RoleUser::class);
 
 //        return $this->belongsToMany(Employee::class);
     }
