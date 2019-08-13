@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateUserRequest;
-use Config;
 use Illuminate\Support\Facades\Validator;
-
+use Config;
 
 class UserController extends Controller
 {
@@ -31,41 +30,22 @@ class UserController extends Controller
     {
         return view('admin.user.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUserRequest $request)
+    public function store (CreateUserRequest $request)
     {
-
         $path = null;
         $input = $request->except('avatar');
         if ($request->hasFile('avatar')) {
             $path = $request->file('avatar')->store('images', ['disk' => 'public']);
             $input['avatar'] = $path;
-
         }
         User::create($input);
-//        $request->validated();
-//        $path= $request->file('myFile')->store('images');
-//        $user = User::create($request->all());
-//        dd($user);
-//        $user = new User();
-//        $user->name = $request->name;
-//        $user->email = $request->email;
-//        $user->phone = $request->phone;
-//        $user->dob = $request->dob;
-//        $user->password = $request->password;
-
-//        $user->avatar = $request->avatar;
-
-
-//        $user->save();
-
-        return redirect()->route('admin.user.list')
+        return redirect()->route('user.index')
             ->with('success', 'User created successfully.');
     }
     /**
@@ -74,7 +54,21 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-
+    public function show (User $user)
+    {
+        $url_avatar = url('/') .'/storage/'. $user->avatar;
+        $data = [
+            'user' => $user,
+            'url_avatar' => $url_avatar
+        ];
+        return view('admin.user.show', $data);
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param \App\User $user
+     * @return \Illuminate\Http\Response
+     */
     public function edit (User $user)
     {
         return view('admin.user.edit', compact('user'));
@@ -86,15 +80,22 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-
-    public function update (CreateUserRequest $request, User $user)
+    public function update (Request $request, User $user)
     {
-        $request->validated();
-
-
-        $user->update($request->all());
-        return redirect()->route('admin.user.list')
-            ->with('success', 'User update successfully.');
+//        $request->validate();
+//        $user->update($request->all());
+//        return redirect()->route('user.index')
+//            ->with('success', 'User update successfully.');
+        $path = null;
+        $input = $request->except('avatar', '_method', '_token');
+        $user = User::findOrFail($user->id);
+        if ($request->hasFile('avatar')) {
+            Storage::disk('public')->delete('/' . $user->avatar);
+            $path = $request->avatar->store('images', ['disk' => 'public']);
+            $input['avatar'] = $path;
+        }
+        $user->update($input);
+        return redirect()->route('user.index')->with('message', __('messages.updated'));
     }
     /**
      * Remove the specified resource from storage.
@@ -102,12 +103,10 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-
     public function destroy (User $user)
     {
         $user->delete();
-        return redirect()->route('admin.user.list')
+        return redirect()->route('user.index')
             ->with('success', 'User deleted successfully');
     }
-
 }

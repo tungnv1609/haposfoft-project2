@@ -10,45 +10,42 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Customer;
+
+use App\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', function () {
-    $users = \App\User::find(7);
-    foreach ($users->porjects as $projects)
+Route::group(['prefix' => 'page'], function () {
+
+    Route::get('/', 'PageHomeController@indexPageHome')->name('page/home');
+
+    Route::get('/show','PageHomeController@showUser')->name('page/show');
+});
+
+Route::get('page', 'PageHomeController@indexPageHome')->name('page/home');
+
+Route::get('page.show','PageHomeController@showUser')->name('page/show');
+
+Route::get('admin', 'AdminPageController@indexAdmin')->name('admin');
+
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::resource('user','UserController');
+
+    Route::resource('report','ReportController');
+
+    Route::resource('task','TaskController');
+
+    Route::get('relative', function ()
     {
-        echo $projects->name;
-    }
-
-});
-
-Route::get('admin', function () {
-	return view('admin.layout.index');
-});
-
-//Route::resource('user','UserController');
-
-
-Route::group(['prefix'=>'admin'], function () {
-
-//    Route::group(['prefix'=>'user'], function (){
-//        Route::get('list/user', 'ListUser@listUser');
-//        Route::get('edit/user', 'ListUser@editUser');
-//        Route::get('delete/user', 'ListUser@detroyUser');
-        Route::resource('user','UserController');
-//    });
-
-    Route::group(['prefix'=>'project'], function (){
-        Route::get('list/project', 'ProjectController@listProject');
-        Route::get('edit/project', 'ProjectController@editProject');
-        Route::get('delete/project', 'ProjectController@deleteProject');
+       return view('admin.relative');
     });
 
 });
 
-Route::get('/home','HomeController@getIndex');
+Route::get('/home', 'HomeController@getIndex');
 
 Route::get('login', 'LoginController@getLogin');
 Route::post('login', 'LoginController@postLogin');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     protected $table = 'reports';
-    protected $fillable = ['id','employee_id','note','delete_at','created_at','updated_at'];
+    protected $fillable = ['id','user_id','note'];
 
     public function users ()
     {

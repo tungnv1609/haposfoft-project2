@@ -20,30 +20,32 @@
 
 <div class="app-container app-theme-white fixed-sidebar fixed-header">
     @include('admin.layout.header')
-    <div class="app-main">
-        <div class="app-sidebar sidebar-shadow">
-            <div class="scrollbar-sidebar">
-                <div class="app-sidebar__inner">
-                    <ul class="vertical-nav-menu">
-                        <li class="app-sidebar__heading">Dashboards</li>
-                        <li>
-                            <a href="admin/user/list/user">User</a>
-                            <a href="admin/project/list/project">Customer</a>
-                            <a href="#">Project</a>
-                            <a href="#">Report</a>
-                            <a href="#">Task</a>
-                            <a href="#">Feedback</a>
-                        </li>
-                        <li>
-                            <a href="#">Role</a>
-                        </li>
-                    </ul>
+    <div class="app-main bg-focus">
+            <div class="app-sidebar sidebar-shadow">
+                <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading"> <a href="{{ route('admin') }}" class="text-info font-size-lg">Dashboards</a></li>
+                            <li>
+                                <a href="{{ route('user.index') }}">User</a>
+                                <a href="">Customer</a>
+                                <a href="#">Project</a>
+                                <a href="{{ route('report.index') }}">Report</a>
+                                <a href="{{ route('task.index') }}">Task</a>
+                                <a href="#">Feedback</a>
+                            </li>
+                            <li>
+                                <a href="#">Report-Task</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+
     </div>
-    @yield('content')
+
 </div>
+@yield('content')
 {{--@include('layout.footer')--}}
 <script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" href="js/bootstrap.min.js"></script>

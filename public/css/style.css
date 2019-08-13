@@ -1,0 +1,13 @@
+/*.show-user {*/
+/*    margin-left: 50rem;*/
+/*}*/
+
+.container-avatar img {
+    width: 20rem;
+    height:20rem;
+    border:1px solid lightblue;
+}
+
+.button-back {
+    margin-left: 20rem;
+}

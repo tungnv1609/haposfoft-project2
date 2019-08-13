@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
     <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, project-scalable=no, shrink-to-fit=no"/>
+          content="width=device-width, initial-scale=1, maximum-scale=1, customer-scalable=no, shrink-to-fit=no"/>
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -23,24 +23,26 @@
         <table class="table table-bordered p-0 ">
             <tr>
                 <th class="bg-secondary">ID</th>
-                <th class="bg-secondary">Customer_id</th>
                 <th class="bg-secondary">Name</th>
-                <th class="bg-secondary">Detail</th>
+                <th class="bg-secondary">Phone</th>
+                <th class="bg-secondary">Email</th>
+                <th class="bg-secondary">Address</th>
                 <th class="bg-secondary">Action</th>
             </tr>
-            @foreach ($list_project as $project)
+            @foreach ($list_customer as $customer)
                 <tr>
-                    <td class="bg-light">{{ $project->id }}</td>
-                    <td>{{ $project->customer_id }}</td>
-                    <td class="bg-light">{{ $project->name }}</td>
-                    <td>{{ $project->detail }}</td>
+                    <td class="bg-light">{{ $customer->id }}</td>
+                    <td>{{ $customer->name }}</td>
+                    <td class="bg-light">{{ $customer->phone }}</td>
+                    <td>{{ $customer->email }}</td>
+                    <td>{{ $customer->address }}</td>
                     <td>
-                        {{--                                        <form action="{{ route('project.destroy',$project->id) }}" method="POST">--}}
+                        {{--                                        <form action="{{ route('customer.destroy',$customer->id) }}" method="POST">--}}
                         <form action="" method="POST">
-                            {{--                                            <a class="btn btn-info" href="{{ route('project.show',$project->id) }}">Show</a>--}}
-                            <a class="btn btn-info" href="">Create</a>
+                            {{--                                            <a class="btn btn-info" href="{{ route('customer.show',$customer->id) }}">Show</a>--}}
+                            <a class="btn btn-info" href="">Show</a>
 
-                            {{--                                            <a class="btn btn-primary" href="{{ route('admin.project.edit.project',$project->id) }}">Edit</a>--}}
+                            {{--                                            <a class="btn btn-primary" href="{{ route('admin.customer.edit.customer',$customer->id) }}">Edit</a>--}}
                             <a class="btn btn-primary" href="">Edit</a>
 
                             @csrf
@@ -52,7 +54,7 @@
             @endforeach
         </table>
     </div>
-    {{ $list_project->links() }}
+    {{ $list_customer->links() }}
 
 </div>
 <script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>

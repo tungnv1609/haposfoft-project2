@@ -10,7 +10,7 @@ class ProjectController extends Controller
     function listProject ()
     {
         $projects = Project::paginate(3);
-        return view('admin.project.list',['list_project'=>$projects]);
+        return view('',['list_project'=>$projects]);
     }
 
     public function editProject(Project $project)

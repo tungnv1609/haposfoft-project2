@@ -25,77 +25,53 @@
     @include('admin.layout.header')
 
     <div class="app-main">
-        {{--                <div class="container-fluid  justify-content-center mt-3 mb-4">--}}
-        {{--                    <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>--}}
-        {{--                </div>--}}
         <div class="row mt-3  d-flex justify-content-center show-user m-auto">
-
-            <div class="container-fluid d-flex justify-content-center">
-                <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
-            </div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ route('user.update',$user->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="row ml-5 mr-5">
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+            <div class="card mr-2  ">
+                <div class="card-header">Info User</div>
+                <div class="card-body">
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light text-info">
                         <div class="form-group">
-                            <strong>Name:</strong>
-                            <input type="text" name="name" value="{{ $user->name }}" class="form-control"
-                                   placeholder="Name">
+                            <h1>Name:{{$user->name}}</h1>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
                         <div class="form-group">
-                            <strong>Number Phone:</strong>
-                            <input type="text" name="phone" value="{{ $user->phone }}" class="form-control"
-                                   placeholder="Name">
+                            <strong>ID:</strong>
+                            {{ $user->id }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                        <div class="form-group">
+                            <strong>Phone:</strong>
+                            {{ $user->phone }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
                         <div class="form-group">
                             <strong>Email:</strong>
-                            <input type="text" name="email" value="{{ $user->email }}" class="form-control"
-                                   placeholder="Email">
+                            {{ $user->email }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
                         <div class="form-group">
                             <strong>Address:</strong>
-                            <input type="text" name="address" value="{{ $user->address }}" class="form-control"
-                                   placeholder="Address">
+                            {{ $user->address }}
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                        <div class="form-group">
-                            <strong>Avatar:</strong><br>
-                            <input type="file" name="avatar" value="{{ $user->avatar }}" class="form-control"
-                                   placeholder="Choose avatar">
-                        </div>
-                    </div>
-                    <div class="container-fluid  button-submit-edit">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
                     </div>
                 </div>
-            </form>
+            </div>
+            <div class="user-avatar container-avatar">
+                <img src="{{$url_avatar}}" alt="img avatar">
+            </div>
+            <div class="container-fluid d-flex justify-content-center mt-3 mb-4">
+                <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
+            </div>
         </div>
-
         <div class="app-sidebar sidebar-shadow">
             <div class="scrollbar-sidebar">
                 <div class="app-sidebar__inner">
                     <ul class="vertical-nav-menu">
-                        <li class="app-sidebar__heading"><a href="{{ route('admin') }}"
-                                                            class="text-info font-size-lg">Dashboards</a></li>
+                        <li class="app-sidebar__heading"> <a href="{{ route('admin') }}" class="text-info font-size-lg">Dashboards</a></li>
                         <li>
                             <a href="{{ route('user.index') }}">User</a>
                             <a href="admin/customer/list/customer">Customer</a>
@@ -111,6 +87,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 </div>
