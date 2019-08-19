@@ -1,125 +1,61 @@
-<!doctype html>
-<html lang="en">
+@extends('admin.layout.index')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
-    <meta name="msapplication-tap-highlight" content="no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <base href="{{ asset(' ') }}">
-    <link href="css/main.css" rel="stylesheet">
-    <base href="{{ asset(' ') }}">
-
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body>
-
-<div class="app-container app-theme-white fixed-sidebar fixed-header">
-    @include('admin.layout.header')
-
-    <div class="app-main">
-        {{--                <div class="container-fluid  justify-content-center mt-3 mb-4">--}}
-        {{--                    <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>--}}
-        {{--                </div>--}}
-        <div class="row mt-3  d-flex justify-content-center show-user m-auto">
-
-            <div class="container-fluid d-flex justify-content-center">
-                <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
-            </div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ route('user.update',$user->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="row ml-5 mr-5">
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                        <div class="form-group">
-                            <strong>Name:</strong>
-                            <input type="text" name="name" value="{{ $user->name }}" class="form-control"
-                                   placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                        <div class="form-group">
-                            <strong>Number Phone:</strong>
-                            <input type="text" name="phone" value="{{ $user->phone }}" class="form-control"
-                                   placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                        <div class="form-group">
-                            <strong>Email:</strong>
-                            <input type="text" name="email" value="{{ $user->email }}" class="form-control"
-                                   placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                        <div class="form-group">
-                            <strong>Address:</strong>
-                            <input type="text" name="address" value="{{ $user->address }}" class="form-control"
-                                   placeholder="Address">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                        <div class="form-group">
-                            <strong>Avatar:</strong><br>
-                            <input type="file" name="avatar" value="{{ $user->avatar }}" class="form-control"
-                                   placeholder="Choose avatar">
-                        </div>
-                    </div>
-                    <div class="container-fluid  button-submit-edit">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
-                    </div>
-                </div>
-            </form>
+@section('content')
+    <div class="row m-auto d-flex justify-content-center show-edit">
+        <div class="container-fluid d-flex justify-content-center">
+            <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
         </div>
-
-        <div class="app-sidebar sidebar-shadow">
-            <div class="scrollbar-sidebar">
-                <div class="app-sidebar__inner">
-                    <ul class="vertical-nav-menu">
-                        <li class="app-sidebar__heading"><a href="{{ route('admin') }}"
-                                                            class="text-info font-size-lg">Dashboards</a></li>
-                        <li>
-                            <a href="{{ route('user.index') }}">User</a>
-                            <a href="admin/customer/list/customer">Customer</a>
-                            <a href="#">Project</a>
-                            <a href="admin/report/list/report">Report</a>
-                            <a href="#">Task</a>
-                            <a href="#">Feedback</a>
-                        </li>
-                        <li>
-                            <a href="#">Report-Task</a>
-                        </li>
-                    </ul>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('user.update',$user->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    <input type="text" name="name" value="{{ $user->name }}" class="form-control"
+                           placeholder="Name">
                 </div>
             </div>
-        </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                <div class="form-group">
+                    <strong>Number Phone:</strong>
+                    <input type="text" name="phone" value="{{ $user->phone }}" class="form-control"
+                           placeholder="Name">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                <div class="form-group">
+                    <strong>Email:</strong>
+                    <input type="text" name="email" value="{{ $user->email }}" class="form-control"
+                           placeholder="Email">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                <div class="form-group">
+                    <strong>Address:</strong>
+                    <input type="text" name="address" value="{{ $user->address }}" class="form-control"
+                           placeholder="Address">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                <div class="form-group">
+                    <strong>Avatar:</strong><br>
+                    <input type="file" name="avatar" value="{{ $user->avatar }}" class="form-control"
+                           placeholder="Choose avatar">
+                </div>
+            </div>
+            <div class="container-fluid  button-submit-edit">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     </div>
-
-</div>
-@yield('content')
-{{--@include('layout.footer')--}}
-<script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" href="js/bootstrap.min.js"></script>
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="js/main.js"></script>
-</body>
-
-</html>
+    @endsection

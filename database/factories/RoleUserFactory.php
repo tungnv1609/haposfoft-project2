@@ -9,7 +9,7 @@ $factory->define(RoleUser::class, function (Faker $faker) {
     return [
         'role_id' => App\Role::all()->random()->id,
         'user_id' => App\User::all()->random()->id,
-        'start_date' => now(),
-        'end_date' => now(),
+        'start_date' => $faker->date(),
+        'end_date' => $faker->date(),
     ];
 });

@@ -15,10 +15,11 @@ class Tasks extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->text('content');
+            $table->integer('project_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->text('content')->nullable();
             $table->time('time');
-            $table->datetime('delete_at');
+            $table->datetime('delete_at')->nullable();
             $table->timestamps();
         });
     }

@@ -17,16 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('web', 'WebController@indexWeb')->name('page/home');
+
 Route::group(['prefix' => 'page'], function () {
 
-    Route::get('/', 'PageHomeController@indexPageHome')->name('page/home');
+    Route::resource('web','PageHomeController');
 
-    Route::get('/show','PageHomeController@showUser')->name('page/show');
 });
-
-Route::get('page', 'PageHomeController@indexPageHome')->name('page/home');
-
-Route::get('page.show','PageHomeController@showUser')->name('page/show');
 
 Route::get('admin', 'AdminPageController@indexAdmin')->name('admin');
 
@@ -34,26 +31,36 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('user','UserController');
 
+    Route::resource('project', 'ProjectController');
+
+    Route::resource('assign', 'AssignController');
+
+    Route::resource('customer','CustomerController');
+
     Route::resource('report','ReportController');
 
     Route::resource('task','TaskController');
 
-    Route::get('relative', function ()
-    {
-       return view('admin.relative');
-    });
+    Route::resource('feedback','FeedbackController');
 
+    Route::resource('report-task', 'ReportTaskController');
 });
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@getIndex');
-
-Route::get('login', 'LoginController@getLogin');
-Route::post('login', 'LoginController@postLogin');
+Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@getLogin']);
+Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@postLogin']);
 
 Route::get('register', 'Auth\RegisterController@getRegister');
+
 Route::post('register', 'Auth\RegisterController@postRegister');
 
-Route::get('logout', 'Auth\LogoutController@postRegister');
+Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LogoutController@getLogout']);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('test1', function () {
+    return view('admin.layout.index');
+});

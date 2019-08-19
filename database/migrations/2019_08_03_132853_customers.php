@@ -18,11 +18,11 @@ class Customers extends Migration
             $table->string('name', 50);
             $table->string('phone')->unique();
             $table->string('email', 50)->unique();
-            $table->string('address', 100);
+            $table->string('address', 100)->nullable();
             $table->string('password', 100);
-            $table->string('created_by', 50);
-            $table->string('updated_by',50);
-            $table->string('deleted_by', 50);
+            $table->string('created_by', 50)->nullable();
+            $table->string('updated_by',50)->nullable();
+            $table->string('deleted_by', 50)->nullable();
             $table->rememberToken();
             $table->datetime('delete_at');
             $table->timestamps();

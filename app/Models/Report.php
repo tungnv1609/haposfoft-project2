@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     protected $table = 'reports';
-    protected $fillable = ['id','user_id','note'];
+    protected $fillable = ['id','user_id'];
 
     public function users ()
     {
@@ -16,6 +16,6 @@ class Report extends Model
 
     public function tasks ()
     {
-        return $this->belongsToMany(Task::class)->withPivot('note')->withPivot('note')->withTimestamps();
+        return $this->belongsToMany(Task::class)->withPivot('note')->withTimestamps();
     }
 }

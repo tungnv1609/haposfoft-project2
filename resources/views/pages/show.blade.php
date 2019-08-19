@@ -13,48 +13,80 @@
     <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <base href="{{ asset(' ') }}">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-@include('admin.layout.header')
-<div class="container-fluid">
+
+<div class="app-container app-theme-white fixed-sidebar fixed-header">
+    @include('admin.layout.header')
+    <div class="app-main">
+        <div class="row mt-3  d-flex justify-content-center show-user m-auto">
+            <div class="card mr-2  ">
+                <div class="card-header">Info User</div>
+                <div class="card-body">
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light text-info">
+                        <div class="form-group">
+                            <h1>Name:{{$user->name}}</h1>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                        <div class="form-group">
+                            <strong>ID:</strong>
+                            {{ $user->id }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                        <div class="form-group">
+                            <strong>Phone:</strong>
+                            {{ $user->phone }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                        <div class="form-group">
+                            <strong>Email:</strong>
+                            {{ $user->email }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                        <div class="form-group">
+                            <strong>Address:</strong>
+                            {{ $user->address }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-avatar container-avatar">
+                <img src="{{$url_avatar}}" alt="img avatar">
+            </div>
+            <div class="container-fluid d-flex justify-content-center mt-3 mb-4">
+                <a class="btn btn-primary" href="{{ route('web.index') }}"> Back</a>
+            </div>
+        </div>
+        <div class="app-sidebar sidebar-shadow">
+            <div class="scrollbar-sidebar">
+                <div class="app-sidebar__inner">
+                    <ul class="vertical-nav-menu">
+                        <li class="app-sidebar__heading"> <a href="{{ route('page/home') }}" class="text-info font-size-lg">Dashboards</a></li>
+                        <li>
+                            <a href="{{ route('web.index') }}">User</a>
+                            <a href="#">Project</a>
+                            <a href="#">Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </div>
-<table class="table table-bordered p-0 ">
-    <tr>
-        <th class="bg-secondary">ID</th>
-        <th class="bg-secondary">Name</th>
-        <th class="bg-secondary">Number Phone</th>
-        <th class="bg-secondary">Email</th>
-        <th class="bg-secondary">Address</th>
-        <th class="bg-secondary">Action</th>
-    </tr>
-    @foreach ($list_user as $user)
-        <tr>
-            <td class="bg-light">{{ $user->id }}</td>
-            <td>{{ $user->name }}</td>
-            <td class="bg-light">{{ $user->phone }}</td>
-            <td>{{ $user->email }}</td>
-            <td class="bg-light">{{ $user->address }}</td>
-            <td>
-                <a class="btn btn-info" href="{{ route('user.show',$user->id) }}">Show</a>
-            </td>
-        </tr>
-    @endforeach
-</table>
-<div class="container-fluid">
-    <div class="col-lg-12 mt-3">
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('page/home') }}"> Back</a>
-        </div>
-    </div>
-    {{ $list_user->links() }}
-</div>
+@yield('content')
+{{--@include('layout.footer')--}}
 <script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" href="js/bootstrap.min.js"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

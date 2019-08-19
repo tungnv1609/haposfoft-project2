@@ -4,7 +4,6 @@
 use App\Project;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-$factory->define(\App\Project::class, function (Faker $faker) {
+$factory->define(App\Project::class, function (Faker $faker) {
     return [
         'customer_id' => App\Customer::all()->random()->id,
         'name' => $faker->name,

@@ -20,16 +20,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ReportSeeder::class,
             TaskSeeder::class,
-            ProjectUser::class,
-            RoleSeeder::class
+            RoleUserSeeder::class,
+            DepartmentSeeder::class
         ]);
-        //        $this->call(App\User::class);
-//        $this->call(\App\Project::class);
-//        $this->call(\App\Role::class);
-//        $this->call(\App\Feedback::class);
-//        $this->call(\App\Report::class);
-//        $this->call(\App\Task::class);
-//        $this->call(\App\ProjectUser::class);
-//        $this->call(\App\RoleUser::class);
     }
 }

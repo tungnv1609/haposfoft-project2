@@ -16,10 +16,10 @@ class Feedbacks extends Migration
         Schema::create('feedbacks', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_id')->unsigned()->nullable();
-            $table->text('content');
-            $table->datetime('delete_at');
+            $table->text('content')->nullable();
+            $table->datetime('delete_at')->nullable();
             $table->timestamps();
-            $table->foreign('customer_id')->references('id')->on('customers');
+//            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 

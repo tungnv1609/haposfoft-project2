@@ -16,11 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $table = 'users';
-    protected $fillable = ['id','name','phone','email','address','password','avatar','level',];
-//    protected $fillable = [
-//        'name', 'email', 'password',
-//    ];
-
+    protected $fillable = ['department_id','name', 'phone', 'email','address', 'password', 'avatar', 'level'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -39,23 +35,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function roleUsers ()
-    {
-        return $this->hasMany(RoleUser::class);
-    }
-
-//    function projects ()
-//    {
-//        return $this->belongsToMany(Project::class);
-//    }
-
-    function reports ()
+    public function reports()
     {
         return $this->hasMany(Report::class);
     }
 
-    function tasks ()
+    public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function roleUsers()
+    {
+        return $this->hasMany(RoleUser::class);
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withPivot('start_date', 'end_date')->withTimestamps();
+    }
+
+    public function departments()
+    {
+        return $this->belongsTo(Department::class);
     }
 }

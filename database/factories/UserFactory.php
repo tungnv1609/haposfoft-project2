@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
+        'department_id' => App\Department::all()->random()->id,
         'name' => $faker->name,
         'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
@@ -32,7 +33,5 @@ $factory->define(User::class, function (Faker $faker) {
         'delete_by' => $faker->name,
         'remember_token' => Str::random(10),
         'delete_at' => now(),
-//        'created_at ' => now(),
-//        'update_at' => now(),
     ];
 });

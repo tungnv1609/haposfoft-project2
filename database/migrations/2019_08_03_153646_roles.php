@@ -15,11 +15,11 @@ class Roles extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('note');
-            $table->string('create_by', 50);
-            $table->string('update_by', 50);
-            $table->string('delete_by', 50);
-            $table->datetime('delete_at');
+            $table->text('name');
+            $table->string('create_by', 50)->nullable();
+            $table->string('update_by', 50)->nullable();
+            $table->string('delete_by', 50)->nullable();
+            $table->datetime('delete_at')->nullable();
             $table->timestamps();
         });
     }

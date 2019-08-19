@@ -14,11 +14,11 @@ class ReportTask extends Migration
     public function up()
     {
         Schema::create('report_task', function(Blueprint $table) {
+            $table->increments('id');
             $table->integer('report_id')->unsigned();
             $table->integer('task_id')->unsigned();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
-            $table->unique(['report_id','task_id']);
         });
     }
 

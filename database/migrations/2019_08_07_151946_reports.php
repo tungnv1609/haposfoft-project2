@@ -16,8 +16,8 @@ class Reports extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->text('note');
-            $table->datetime('delete_at');
+            $table->text('note')->nullable();
+            $table->datetime('delete_at')->nullable();
             $table->timestamps();
 //            $table
 //                ->foreign('user_id')

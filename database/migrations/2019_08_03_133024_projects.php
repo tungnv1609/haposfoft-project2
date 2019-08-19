@@ -17,16 +17,12 @@ class Projects extends Migration
             $table->increments('id');
             $table->integer('customer_id')->unsigned();
             $table->string('name', 50);
-            $table->text('detail');
-            $table->string('create_by', 50);
-            $table->string('update_by', 50);
-            $table->string('delete_by', 50);
-            $table->datetime('delete_at');
+            $table->text('detail')->nullable();
+            $table->string('create_by', 50)->nullable();
+            $table->string('update_by', 50)->nullable();
+            $table->string('delete_by', 50)->nullable();
+            $table->datetime('delete_at')->nullable();
             $table->timestamps();
-//             $table
-//                 ->foreign('customer_id')
-//                 ->references('id')
-//                 ->on('customers');
         });
     }
 

@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $table = 'projects';
-    protected $fillable = ['id','customer_id','name','deteil','create_by','update_by','delete_by','delete_at','created_at','updated_at'];
+    protected $fillable = ['customer_id','name','detail'];
 
     public function customers ()
     {
         return $this->belongsTo (Customer::class);
     }
-
-    public function roleUsers ()
+    public function tasks ()
     {
-        return $this->hasMany(RoleUser::class);
+        return $this->hasMany(Task::class);
+    }
 
-//        return $this->belongsToMany(Employee::class);
+    public function users ()
+    {
+        return $this->belongsToMany(User::class)->withPivot('start_date','end_date')->withTimestamps();
     }
 }

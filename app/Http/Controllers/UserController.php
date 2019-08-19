@@ -15,64 +15,70 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function index ()
+    function index()
     {
         $users = User::paginate(9);
-        return view('admin.user.list',['list_user'=>$users]);
+        return view('admin.user.list', ['list_user' => $users]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function create ()
+    public function create()
     {
         return view('admin.user.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store (CreateUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $path = null;
-        $input = $request->except('avatar');
+        $input = $request->except('avatar', '_method');
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('images', ['disk' => 'public']);
+            $path = $request->avatar->store('images', ['disk' => 'public']);
             $input['avatar'] = $path;
         }
+        $input['password'] = \Hash::make($request->get('password'));
         User::create($input);
         return redirect()->route('user.index')
             ->with('success', 'User created successfully.');
     }
+
     /**
      * Display the specified resource.
      *
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function show (User $user)
+    public function show(User $user)
     {
-        $url_avatar = url('/') .'/storage/'. $user->avatar;
+        $url_avatar = url('/') . '/storage/' . $user->avatar;
         $data = [
             'user' => $user,
             'url_avatar' => $url_avatar
         ];
         return view('admin.user.show', $data);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit (User $user)
+    public function edit(User $user)
     {
         return view('admin.user.edit', compact('user'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -80,12 +86,8 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update (Request $request, User $user)
+    public function update(Request $request, User $user)
     {
-//        $request->validate();
-//        $user->update($request->all());
-//        return redirect()->route('user.index')
-//            ->with('success', 'User update successfully.');
         $path = null;
         $input = $request->except('avatar', '_method', '_token');
         $user = User::findOrFail($user->id);
@@ -97,13 +99,14 @@ class UserController extends Controller
         $user->update($input);
         return redirect()->route('user.index')->with('message', __('messages.updated'));
     }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy (User $user)
+    public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('user.index')
