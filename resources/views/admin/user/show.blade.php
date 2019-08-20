@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row mt-3  d-flex justify-content-center show-data m-auto">
-        <div class="card mr-2  ">
+        <div class="card show-user">
             <div class="card-header">Info data</div>
             <div class="card-body">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-light text-info">

@@ -20,6 +20,11 @@ class RoleUser extends Migration
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->timestamps();
+
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+//
+//            $table->primary(['user_id','role_id']);
         });
     }
 

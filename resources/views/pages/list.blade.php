@@ -42,7 +42,7 @@
 <div class="container-fluid">
     <div class="col-lg-12 mt-3">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('page/home') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
         </div>
     </div>
     {{ $list_user->links() }}

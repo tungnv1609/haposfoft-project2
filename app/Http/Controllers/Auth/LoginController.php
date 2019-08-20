@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
+use App\User;
 use Session;
 
 class LoginController extends Controller
@@ -70,7 +71,7 @@ class LoginController extends Controller
             $password = $request->input('password');
 
             if (Auth::attempt(['email' => $email, 'password' => $password])) {
-                return redirect('page.home');
+                return redirect('admin');
             } else {
                 $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
                 return redirect()->back()->withInput()->withErrors($errors);

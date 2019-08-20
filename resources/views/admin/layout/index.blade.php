@@ -47,7 +47,6 @@
 </div>
 <script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" href="js/bootstrap.min.js"></script>
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </body>
 

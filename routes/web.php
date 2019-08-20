@@ -12,18 +12,12 @@
 */
 
 use App\User;
+//
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('web', 'WebController@indexWeb')->name('page/home');
-
-Route::group(['prefix' => 'page'], function () {
-
-    Route::resource('web','PageHomeController');
-
-});
 
 Route::get('admin', 'AdminPageController@indexAdmin')->name('admin');
 
@@ -45,8 +39,17 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('report-task', 'ReportTaskController');
 });
+
+Route::get('/', 'PageHomeController@index')->name('page/home');
+
+Route::group(['prefix' => 'page'], function () {
+
+    Route::resource('web','PageHomeController');
+
+});
 Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index');
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@getLogin']);
 Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@postLogin']);
@@ -58,7 +61,6 @@ Route::post('register', 'Auth\RegisterController@postRegister');
 Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LogoutController@getLogout']);
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('test1', function () {

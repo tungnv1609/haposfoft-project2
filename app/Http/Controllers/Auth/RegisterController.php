@@ -81,33 +81,29 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'level' => '0',
+            'password' => bcrypt($data['password']),
         ]);
     }
-
     public function getRegister()
     {
         return view('auth/register');
     }
 
     public function postRegister(Request $request) {
-        // Kiểm tra dữ liệu vào
         $allRequest  = $request->all();
         $validator = $this->validator($allRequest);
 
         if ($validator->fails()) {
-            // Dữ liệu vào không thỏa điều kiện sẽ thông báo lỗi
-            return redirect('register')->withErrors($validator)->withInput();
+            return redirect('login')->withErrors($validator)->withInput();
         } else {
-            // Dữ liệu vào hợp lệ sẽ thực hiện tạo người dùng dưới csdl
+
             if( $this->create($allRequest)) {
-                // Insert thành công sẽ hiển thị thông báo
                 Session::flash('success', 'Đăng ký thành viên thành công!');
                 return redirect('page/home');
             } else {
-                // Insert thất bại sẽ hiển thị thông báo lỗi
-                Session::flash('error', 'Đăng ký thành viên thất bại!');
-                return redirect('register');
+             Session::flash('error', 'Đăng ký thành viên thất bại!');
+                return redirect('login');
             }
         }
     }

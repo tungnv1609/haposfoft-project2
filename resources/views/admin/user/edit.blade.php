@@ -35,7 +35,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="text" name="email" value="{{ $user->email }}" class="form-control"
+                    <input type="email" name="email" value="{{ $user->email }}" class="form-control"
                            placeholder="Email">
                 </div>
             </div>

@@ -67,7 +67,7 @@
             <div class="scrollbar-sidebar">
                 <div class="app-sidebar__inner">
                     <ul class="vertical-nav-menu">
-                        <li class="app-sidebar__heading"> <a href="{{ route('page/home') }}" class="text-info font-size-lg">Dashboards</a></li>
+                        <li class="app-sidebar__heading"> <a href="{{ route('home') }}" class="text-info font-size-lg">Dashboards</a></li>
                         <li>
                             <a href="{{ route('web.index') }}">User</a>
                             <a href="#">Project</a>

@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\HasPermissionsTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,HasPermissionsTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +59,10 @@ class User extends Authenticatable
     public function departments()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function pemissions ()
+    {
+        return $this->hasMany(Permission::class);
     }
 }
