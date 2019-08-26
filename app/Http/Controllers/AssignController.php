@@ -18,7 +18,8 @@ class AssignController extends Controller
      */
     public function index()
     {
-        //
+        $project_user = Assign::paginate(9);
+        return view('admin.assign.list', ['list_assign' => $project_user]);
     }
 
     /**
@@ -47,7 +48,7 @@ class AssignController extends Controller
     {
         Assign::create($request->all());
 
-        return redirect()->route('project.index');
+        return redirect()->route('admin.assign.index');
     }
 
     /**

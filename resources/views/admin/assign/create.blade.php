@@ -9,7 +9,7 @@
             <div class="form-group col-sm-8">
                 <label>User Name<span class="text-danger"> *</span></label>
                 <select name="user_id" id="user_id" class="form-control">
-                    <option value="">Vui lòng chọn</option>
+                    <option value="">Select</option>
                     @foreach ($users as $user)
                         <option
                                 value="{{ $user->id }}" {{ ($user->id ==  old('user_id')) ? 'selected' : '' }}>
@@ -17,10 +17,11 @@
                         </option>
                     @endforeach
                 </select>
+            </div>
                 <div class="form-group col-sm-8">
                     <label>Project Name<span class="text-danger"> *</span></label>
                     <select name="project_id" id="project_id" class="form-control">
-                        <option value="">Vui lòng chọn</option>
+                        <option value="">Select</option>
                         @foreach ($projects as $project)
                             <option
                                     value="{{ $project->id }}" {{ ($project->id ==  old('project_id')) ? 'selected' : '' }}>
@@ -41,9 +42,8 @@
                     <p class="text-danger">{{ $errors->first('end_date')}}</p>
                 </div>
                 <div class="form-group col-sm-8">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Assign</button>
+                    <button type="submit" class="btn btn-success"> Assign</button>
                 </div>
-            </div>
         </div>
     </form>
 

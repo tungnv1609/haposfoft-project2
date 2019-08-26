@@ -2,14 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use App\Http\Requests\CreateUserRequest;
 use App\User;
+use App\Role;
+use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Config;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    private $user;
+    private $role;
+    private $department;
+
+    public function __construct(User $user, Role $role, Department $department)
+    {
+        $this->user = $user;
+        $this->role = $role;
+        $this->department = $department;
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +35,8 @@ class UserController extends Controller
      */
     function index()
     {
-        $users = User::paginate(9);
-        return view('admin.user.list', ['list_user' => $users]);
+        $users = User::paginate(5);
+        return view('user.index', ['list_user' => $users]);
     }
 
     /**
@@ -29,7 +47,9 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.user.create');
+        $roles = $this->role->all();
+        $departments = $this->department->all();
+        return view('user.create', compact('roles', 'departments'));
     }
 
     /**
@@ -40,16 +60,25 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $path = null;
-        $input = $request->except('avatar', '_method');
-        if ($request->hasFile('avatar')) {
-            $path = $request->avatar->store('images', ['disk' => 'public']);
-            $input['avatar'] = $path;
+        try {
+            DB::beginTransaction();
+            $userCreate = $this->user->create([
+                "department_id" => $request->department_id,
+                "name" => $request->name,
+                "phone" => $request->phone,
+                "email" => $request->email,
+                "address" => $request->address,
+                "password" => Hash::make($request->password),
+                "create_by" => $request->create_by,
+            ]);
+            $userCreate->roles()->attach($request->role);
+            DB::commit();
+            return redirect()->route('user.index')
+                ->with('success', 'User created successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
         }
-        $input['password'] = \Hash::make($request->get('password'));
-        User::create($input);
-        return redirect()->route('user.index')
-            ->with('success', 'User created successfully.');
+
     }
 
     /**
@@ -60,12 +89,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $url_avatar = url('/') . '/storage/' . $user->avatar;
         $data = [
-            'user' => $user,
-            'url_avatar' => $url_avatar
+            'user'         => $user,
         ];
-        return view('admin.user.show', $data);
+        return view('user.show')->with($data);
+
     }
 
     /**
@@ -74,9 +102,12 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('admin.user.edit', compact('user'));
+        $roles = $this->role->all();
+        $user = $this->user->findOrFail($id);
+        $listRoleOfUser = DB::table('role_user')->where('user_id', $id)->pluck('role_id');
+        return view('user.edit', compact('roles', 'user', 'listRoleOfUser'));
     }
 
     /**
@@ -86,18 +117,29 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $path = null;
-        $input = $request->except('avatar', '_method', '_token');
-        $user = User::findOrFail($user->id);
-        if ($request->hasFile('avatar')) {
-            Storage::disk('public')->delete('/' . $user->avatar);
-            $path = $request->avatar->store('images', ['disk' => 'public']);
-            $input['avatar'] = $path;
+        try {
+            DB::beginTransaction();
+            $this->user->where('id', $id)->update([
+                "department_id" => $request->department_id,
+                "name" => $request->name,
+                "phone" => $request->phone,
+                "email" => $request->email,
+                "address" => $request->address,
+                "password" => Hash::make($request->password),
+                "created_by" => $request->create_by,
+            ]);
+
+            DB::table('role_user')->where('user_id', $id)->delete();
+            $userCreate = $this->user->find($id);
+            $userCreate->roles()->attach($request->roles);
+            DB::commit();
+            return redirect()->route('user.index')
+                ->with('success', 'User updated successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
         }
-        $user->update($input);
-        return redirect()->route('user.index')->with('message', __('messages.updated'));
     }
 
     /**
@@ -106,10 +148,18 @@ class UserController extends Controller
      * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
-        return redirect()->route('user.index')
-            ->with('success', 'User deleted successfully');
+        try {
+            DB::beginTransaction();
+            $user = $this->user->find($id);
+            $user->delete($id);
+            DB::commit();
+            $user->roles()->detach();
+            return redirect()->route('user.index')
+                ->with('success', 'User created successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
     }
 }

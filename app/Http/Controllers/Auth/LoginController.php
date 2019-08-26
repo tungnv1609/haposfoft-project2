@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'user.index';
 
     /**
      * Create a new controller instance.
@@ -71,7 +71,7 @@ class LoginController extends Controller
             $password = $request->input('password');
 
             if (Auth::attempt(['email' => $email, 'password' => $password])) {
-                return redirect('admin');
+                return redirect('user.index');
             } else {
                 $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
                 return redirect()->back()->withInput()->withErrors($errors);

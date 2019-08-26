@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentSeeder extends Seeder
 {
@@ -11,6 +12,10 @@ class DepartmentSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Department::class,5)->create();
+        DB::table('departments')->insert([
+            ['name' => 'Nhan su'],
+            ['name' => 'Ky thuat'],
+            ['name' => 'Ke toan'],
+        ]);
     }
 }

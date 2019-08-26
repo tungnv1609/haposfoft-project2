@@ -30,13 +30,9 @@
                                 <a href="{{ route('user.index') }}">User</a>
                                 <a href="{{ route('project.index') }}">Project</a>
                                 <a href="{{ route('assign.create') }}">Assign</a>
-                                <a href="{{ route('customer.index') }}">Customer</a>
                                 <a href="{{ route('report.index') }}">Report</a>
                                 <a href="{{ route('task.index') }}">Task</a>
                                 <a href="{{ route('feedback.index') }}">Feedback</a>
-                            </li>
-                            <li>
-                                <a href="#">Report-Task</a>
                             </li>
                         </ul>
                     </div>

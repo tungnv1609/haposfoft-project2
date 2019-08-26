@@ -8,6 +8,6 @@ class AdminPageController extends Controller
 {
     function indexAdmin ()
     {
-        return view('admin.layout.index');
+        return view('admin.home');
     }
 }

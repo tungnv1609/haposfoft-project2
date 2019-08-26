@@ -52,11 +52,14 @@ class RegisterController extends Controller
     {
         return Validator::make($data,
             [
+                'department_id' => 'required|integer|max:10',
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6|confirmed',
             ],
             [
+                'department_id.require' => 'Department_ID la bat buoc',
+                'department_id.max' => 'Department_ID khong qua 10 ky tu',
                 'name.required' => 'Họ và tên là trường bắt buộc',
                 'name.max' => 'Họ và tên không quá 255 ký tự',
                 'email.required' => 'Email là trường bắt buộc',
@@ -79,9 +82,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'department_id' => $data['department_id'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'level' => '0',
             'password' => bcrypt($data['password']),
         ]);
     }
@@ -100,7 +103,7 @@ class RegisterController extends Controller
 
             if( $this->create($allRequest)) {
                 Session::flash('success', 'Đăng ký thành viên thành công!');
-                return redirect('page/home');
+                return redirect('/');
             } else {
              Session::flash('error', 'Đăng ký thành viên thất bại!');
                 return redirect('login');

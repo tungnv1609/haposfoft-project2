@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Feedbacks extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class Feedbacks extends Migration
      */
     public function up()
     {
-        Schema::create('feedbacks', function(Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id')->unsigned()->nullable();
+            $table->integer('project_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->text('content')->nullable();
+            $table->time('time');
             $table->datetime('delete_at')->nullable();
             $table->timestamps();
-//            $table->foreign('customer_id')->references('id')->on('customers');
+
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -30,6 +35,6 @@ class Feedbacks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('tasks');
     }
 }

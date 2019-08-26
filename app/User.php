@@ -2,14 +2,13 @@
 
 namespace App;
 
-use App\HasPermissionsTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable,HasPermissionsTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $table = 'users';
-    protected $fillable = ['department_id','name', 'phone', 'email','address', 'password', 'avatar', 'level'];
+    protected $fillable = ['department_id','name','phone','email','address','password'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -46,11 +45,6 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    public function roleUsers()
-    {
-        return $this->hasMany(RoleUser::class);
-    }
-
     public function projects()
     {
         return $this->belongsToMany(Project::class)->withPivot('start_date', 'end_date')->withTimestamps();
@@ -61,8 +55,8 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
-    public function pemissions ()
+    public function roles ()
     {
-        return $this->hasMany(Permission::class);
+        return $this->belongsToMany(Role::class)->withPivot('start_date','end_date')->withTimestamps();
     }
 }

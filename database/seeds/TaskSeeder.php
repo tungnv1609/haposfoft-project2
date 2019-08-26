@@ -23,7 +23,7 @@ class TaskSeeder extends Seeder
     public function run()
     {
         $reports = App\Report::all();
-        factory(App\Task::class, 30)->create()
+        factory(App\Task::class, 10)->create()
             ->each(function ($tasks) use ($reports) {
                 $tasks->reports()->attach(
                     $reports->random()->id,

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Reports extends Migration
+class CreateReportTaskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class Reports extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('report_task', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('report_id')->unsigned();
+            $table->integer('task_id')->unsigned();
             $table->text('note')->nullable();
-            $table->datetime('delete_at')->nullable();
             $table->timestamps();
-//            $table
-//                ->foreign('user_id')
-//                ->references('id')
-//                ->on('users');
+
+            $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+
         });
     }
 
@@ -33,6 +33,6 @@ class Reports extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('report_task');
     }
 }

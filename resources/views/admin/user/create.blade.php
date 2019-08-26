@@ -61,12 +61,12 @@
                 @enderror
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-            <div class="form-group">
-                <strong>Level:</strong>
-                <input type="number" name="level" class="form-control" placeholder="Level">
-            </div>
-        </div>
+{{--        <div class="col-xs-12 col-sm-12 col-md-12 bg-light">--}}
+{{--            <div class="form-group">--}}
+{{--                <strong>Level:</strong>--}}
+{{--                <input type="number" name="level" class="form-control" placeholder="Level">--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
             <div class="form-group">
                 <strong>Create_by:</strong>

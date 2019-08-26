@@ -2,16 +2,22 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Project;
+use App\RoleUser;
+use App\Role;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 
 
 class UserSeeder extends Seeder
 {
     protected $faker;
+
     public function __construct(Faker $faker)
     {
         $this->faker = $faker;
     }
+
     /**
      * Run the database seeds.
      *
@@ -19,12 +25,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $projects = App\Project::all();
-        factory(App\User::class, 30)->create()
-            ->each(function ($users) use ($projects) {
-                $users->projects()->attach(
-                    $projects->random()->id,
-                    ['start_date' => $this->faker->dateTime(),'end_date' =>  $this->faker->dateTime()]);
-            });
+
     }
 }

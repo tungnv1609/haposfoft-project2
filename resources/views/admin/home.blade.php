@@ -16,6 +16,8 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ route('user.index') }}">List User</a>
                                     <a class="dropdown-item" href="{{ route('user.create') }}">Create User</a>
+                                    <a class="dropdown-item" href="{{ route('user.edit') }}">Edit Info User</a>
+                                    <a class="dropdown-item" href="{{ route('user.show') }}">Show Info User</a>
                                 </div>
                             </div>
                             <div class="dropdown">
@@ -24,8 +26,10 @@
                                     Manage Role
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('role.index') }}">List Role</a>
-                                    <a class="dropdown-item" href="{{ route('role.create') }}">Create Role</a>
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">List User</a>
+                                    <a class="dropdown-item" href="{{ route('user.create') }}">Create User</a>
+                                    <a class="dropdown-item" href="{{ route('user.edit') }}">Edit Info User</a>
+                                    <a class="dropdown-item" href="{{ route('user.show') }}">Show Info User</a>
                                 </div>
                             </div>
                             <div class="dropdown">
@@ -36,6 +40,8 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ route('user.index') }}">List User</a>
                                     <a class="dropdown-item" href="{{ route('user.create') }}">Create User</a>
+                                    <a class="dropdown-item" href="{{ route('user.edit') }}">Edit Info User</a>
+                                    <a class="dropdown-item" href="{{ route('user.show') }}">Show Info User</a>
                                 </div>
                             </div>
                             <div class="dropdown">
@@ -46,6 +52,8 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ route('user.index') }}">List User</a>
                                     <a class="dropdown-item" href="{{ route('user.create') }}">Create User</a>
+                                    <a class="dropdown-item" href="{{ route('user.edit') }}">Edit Info User</a>
+                                    <a class="dropdown-item" href="{{ route('user.show') }}">Show Info User</a>
                                 </div>
                             </div>
                         </li>

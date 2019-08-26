@@ -81,6 +81,7 @@ return [
     */
 
     'locale' => 'en',
+//    'locale' => 'Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +108,6 @@ return [
     */
 
     'faker_locale' => 'en_US',
-
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -175,8 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         'Barryvdh\Debugbar\ServiceProvider',
-        App\Providers\PermissionsServiceProvider::class,
-
     ],
 
     /*

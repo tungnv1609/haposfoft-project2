@@ -2,30 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Report;
-use App\Task;
+use App\Http\Requests\CreateRoleRequest;
+use App\Http\Requests\CreateUserRequest;
+use App\Role;
+use App\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Config;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
+use Illuminate\Support\Facades\DB;
+use Error;
 
-class ReportTaskController extends Controller
+class RoleController extends Controller
 {
+    private $role;
+    private $permission;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(Role $role,Permission $permission)
+    {
+        $this->role = $role;
+        $this->permission = $permission;
+
+    }
+
     public function index()
     {
-
-
-        $tasks = Task::with('reports:report_id')->get();
-        $list_reports = Report::all();
-        $list_tasks = Task::all();
-        $data = [
-            'data' => $tasks,
-            'list_projects' => $list_reports,
-            'list_users' => $list_tasks,
-        ];
-        return view('admin.report_task.list', compact('data'));
+        $roles = Role::paginate(5);
+        return view('admin.role.index', ['list_role' => $roles]);
     }
 
     /**
@@ -35,7 +44,8 @@ class ReportTaskController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = $this->permission->all();
+        return view('admin.role.create',compact('permissions'));
     }
 
     /**
@@ -44,9 +54,21 @@ class ReportTaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRoleRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $roleCreate = $this->role->create([
+                "name" => $request->name,
+                "note" => $request->note,
+            ]);
+            $roleCreate->permissions()->attach($request->permission);
+            DB::commit();
+            return redirect()->route('role.index')
+                ->with('success', 'Role created successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
     }
 
     /**

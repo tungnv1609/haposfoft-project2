@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
 use App\Http\Requests\CreateProjectRequest;
 use App\Project;
 use Illuminate\Http\Request;

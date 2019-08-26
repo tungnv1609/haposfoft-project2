@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
-    public function users ()
+    public function roles ()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Role::class)->withTimestamps();;
     }
 }
