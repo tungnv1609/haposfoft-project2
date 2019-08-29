@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -81,6 +81,7 @@ return [
     */
 
     'locale' => 'en',
+//    'locale' => 'Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +108,6 @@ return [
     */
 
     'faker_locale' => 'en_US',
-
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -174,7 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        'Barryvdh\Debugbar\ServiceProvider',
     ],
 
     /*
@@ -225,6 +225,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
     ],
 

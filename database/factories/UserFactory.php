@@ -4,6 +4,7 @@
 use App\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,19 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
+        'department_id' => App\Department::all()->random()->id,
         'name' => $faker->name,
+        'phone' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'address' => $faker->address,
+        'password' => Hash::make(str_random(8)),
+        'avatar' => Str::random(10),
+        'level' => $faker->numberBetween(0,1),
+        'created_by' => $faker->name,
+        'updated_by' => $faker->name,
+        'delete_by' => $faker->name,
         'remember_token' => Str::random(10),
+        'delete_at' => now(),
     ];
 });

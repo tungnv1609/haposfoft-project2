@@ -1,0 +1,32 @@
+.show-user {
+    margin-left: 10rem;
+}
+
+.container-avatar img {
+    width: 20rem;
+    height: 20rem;
+    border: 1px solid lightblue;
+}
+
+.button-back {
+    margin-left: 20rem;
+}
+
+.show-edit {
+    width: 100%;
+    height: 100%
+}
+
+.footer-container {
+    width: 20rem;
+    height: 100%;
+    background-color: red;
+}
+
+.show-project {
+    margin-left: 20rem;
+}
+
+.show-report {
+    margin-left: 20rem;
+}
