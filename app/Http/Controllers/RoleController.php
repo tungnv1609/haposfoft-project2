@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Validator;
 use Config;
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
 use Illuminate\Support\Facades\DB;
-use Error;
 
 class RoleController extends Controller
 {
@@ -90,7 +89,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permissions = $this->permission->all();
+        $role = $this->role->findOrFail($id);
+        $getAllPermissionOfRole= DB::table('permission_role')->where('role_id', $id)->pluck('permission_id');
+        return view('admin.role.edit', compact('role', 'permissions','getAllPermissionOfRole'));
     }
 
     /**
@@ -100,9 +102,23 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateRoleRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->role->where('id', $id)->update([
+                "name" => $request->name,
+                "note" => $request->note,
+            ]);
+            DB::table('permission_role')->where('role_id', $id)->delete();
+            $roleCreate = $this->role->find($id);
+            $roleCreate->permissions()->attach($request->permission);
+            DB::commit();
+            return redirect()->route('role.index')
+                ->with('success', 'Role updated successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
     }
 
     /**
@@ -113,6 +129,16 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $role = $this->role->find($id);
+            $role->delete($id);
+            DB::commit();
+            $role->permissions()->detach();
+            return redirect()->route('role.index')
+                ->with('success', 'Deleted successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
     }
 }

@@ -3,11 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProjectRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Config;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+    private $project;
+    private $user;
+
+
+    public function __construct(Project $project, User $user)
+    {
+        $this->project = $project;
+        $this->user = $user;
+
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +34,7 @@ class ProjectController extends Controller
     public function index()
     {
             $projects = Project::paginate(5);
-            return view('admin.project.list',['list_project'=>$projects]);
+            return view('admin.project.index',['list_project'=>$projects]);
     }
 
     /**
@@ -26,7 +44,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.project.create');
+        $users = $this->user->all();
+        return view('admin.project.create',compact('users'));
     }
 
     /**
@@ -37,9 +56,21 @@ class ProjectController extends Controller
      */
     public function store(CreateProjectRequest $request)
     {
-        Project::create($request->all());
-        return redirect()->route('project.index')
-            ->with('success', 'project created successfully.');
+        try {
+            DB::beginTransaction();
+            $projectCreate = $this->project->create([
+                "name" => $request->name,
+                "detail" => $request->detail,
+                "created_by" => $request->created_by,
+            ]);
+            $projectCreate->users()->attach($request->user);
+            dd($projectCreate);
+            DB::commit();
+            return redirect()->route('project.index')
+                ->with('success', 'Project created successfully.');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
     }
 
     /**

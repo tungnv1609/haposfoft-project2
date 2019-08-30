@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->text('content')->nullable();
             $table->time('time');
-            $table->datetime('delete_at')->nullable();
+            $table->datetime('deleted_at')->nullable();
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');

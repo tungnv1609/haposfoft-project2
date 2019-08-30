@@ -9,6 +9,6 @@ $factory->define(Feedback::class, function (Faker $faker) {
     return [
         'user_id' => App\User::all()->random()->id,
         'content' =>$faker->text(100),
-        'delete_at' => now(),
+        'deleted_at' => now(),
     ];
 });

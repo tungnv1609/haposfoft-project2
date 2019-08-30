@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             ['name' => 'admin','note' => 'La admin cua he thong.'],
             ['name' => 'customer','note' => 'La khach hang cua cong ty.'],
-            ['name' => 'user','note' => 'La nhan vien cua cong ty, bi gioi han mot so quyen'],
+            ['name' => 'employee','note' => 'La nhan vien cua cong ty.'],
         ]);
     }
 

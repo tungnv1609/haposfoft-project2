@@ -24,64 +24,39 @@ Route::post('register', 'Auth\RegisterController@postRegister');
 Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LogoutController@getLogout']);
 Auth::routes();
 
-Route::get('admin', 'AdminPageController@indexAdmin')->name('admin');
 Route::middleware(['auth'])->group(function () {
-    Route::group(['prefix' => 'admin'], function () {
-            Route::get('/','UserController@index')->name('user.index');
+    Route::group(['prefix' => 'haposoft'], function () {
 
-            Route::get('/create','UserController@create')->name('user.create');
-            Route::post('/create','UserController@store')->name('user.store');
-
-            Route::get('/edit/{id}','UserController@edit')->name('user.edit');
-            Route::post('/edit/{id}', 'UserController@update')->name('user.update');
-
-            Route::get('/show/{id}', 'UserController@show')->name('user.show');
-
-            Route::get('/destroy/{id}', 'UserController@destroy')->name('user.destroy');
-
+        Route::resource('user', 'UserController')->middleware('checkacl:user->user_list');
+//        Route::get('user/','UserController@index')->name('user.index');
+//
+//        Route::get('user/create','UserController@create')->name('user.create');
+//        Route::post('user/create','UserController@store')->name('user.store');
+//
+//        Route::get('user/edit/{id}','UserController@edit')->name('user.edit');
+//        Route::post('user/edit/{id}', 'UserController@update')->name('user.update');
+//
+//        Route::get('user/show/{id}', 'UserController@show')->name('user.show');
+//
+//        Route::get('user/destroy/{id}', 'UserController@destroy')->name('user.destroy');
         Route::resource('role', 'RoleController');
 
         Route::resource('project', 'ProjectController');
 
-        Route::resource('assign', 'AssignController');
+        Route::resource('department', 'DepartmentController');
 
-        Route::resource('customer', 'CustomerController');
+        Route::resource('feedback', 'FeedbackController');
+
+        Route::resource('permission', 'PermissionController');
+
+        Route::resource('assign', 'AssignController');
 
         Route::resource('report', 'ReportController');
 
         Route::resource('task', 'TaskController');
 
-        Route::resource('feedback', 'FeedbackController');
-
         Route::resource('report-task', 'ReportTaskController');
     });
 });
-//Route::get('/', 'PageHomeController@index')->name('page/home');
-//
-//Route::group(['prefix' => 'page'], function () {
-//
-//    Route::resource('web','PageHomeController');
-//
-//});
-
-
 
 Route::get('/', 'HomeController@index')->name('home');
-
-//Route::middleware(['auth'])->group(function () {
-//
-//    Route::prefix('user')->group(function () {
-//
-//        Route::get('/','UserController@index')->name('user.index');
-//
-//        Route::get('/create','UserController@create')->name('user.create');
-//        Route::post('/create','UserController@store')->name('user.store');
-//
-//        Route::get('/edit/{id}','UserController@edit')->name('user.edit');
-//        Route::post('/edit/{id}', 'UserController@update')->name('user.update');
-//
-//        Route::get('/show/{id}', 'UserController@show')->name('user.show');
-//
-//        Route::get('/destroy/{id}', 'UserController@destroy')->name('user.destroy');
-//    });
-//});

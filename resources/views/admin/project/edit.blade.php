@@ -69,5 +69,4 @@
 
 </div>
 @yield('content')
-{{--@include('layout.footer')--}}
         @endsection

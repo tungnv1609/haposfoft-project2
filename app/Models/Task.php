@@ -16,6 +16,6 @@ class Task extends Model
 
     public function reports ()
     {
-        return $this->belongsToMany(Report::class)->withPivot('note')->withTimestamps();
+        return $this->belongsToMany(Report::class)->withTimestamps();
     }
 }

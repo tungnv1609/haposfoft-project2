@@ -35,7 +35,7 @@ class UserController extends Controller
      */
     function index()
     {
-        $users = User::paginate(5);
+        $users = User::paginate(2);
         return view('user.index', ['list_user' => $users]);
     }
 
@@ -130,7 +130,6 @@ class UserController extends Controller
                 "password" => Hash::make($request->password),
                 "created_by" => $request->create_by,
             ]);
-
             DB::table('role_user')->where('user_id', $id)->delete();
             $userCreate = $this->user->find($id);
             $userCreate->roles()->attach($request->roles);
@@ -150,6 +149,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
+
         try {
             DB::beginTransaction();
             $user = $this->user->find($id);
@@ -157,7 +158,7 @@ class UserController extends Controller
             DB::commit();
             $user->roles()->detach();
             return redirect()->route('user.index')
-                ->with('success', 'User created successfully.');
+                ->with('success', 'Deleted successfully.');
         } catch (\Exception $exception) {
             DB::rollBack();
         }

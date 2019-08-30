@@ -1,30 +1,22 @@
-@extends('admin.layout.index')
+@extends('home')
 
-@section('content')
-        <div class="row d-flex justify-content-center m-auto ">
-            <div class="container-fluid d-flex justify-content-center">
-                <a class="btn btn-primary" href="{{ route('report.index') }}"> Back</a>
+@section('sidebar')
+    <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ route('report.update',$report->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
-                    <div class="form-group">
-                        <strong>ID:</strong>
-                        <input type="text" name="id" value="{{ $report->id }}" class="form-control"
-                               placeholder="ID">
-                    </div>
-                </div>
+        @endif
+        <form action="{{ route('report.update',$report->id) }}" method="post">
+            <div class="container-fluid text-center lin mt-3  text-info font-size-xlg font-weight-light">Edit report</div>
+            @csrf
+            @method('PUT')
+            <div class="row mt-3 mr-5 ml-5">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
                     <div class="form-group">
                         <strong>User_ID:</strong>
@@ -39,35 +31,24 @@
                                placeholder="Note">
                     </div>
                 </div>
-                <div class="container-fluid  button-submit-edit">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-xs-12 col-sm-12 col-md-12 bg-light">
+                    <strong>Task:</strong>
+                    <select class="custom-select" multiple="multiple" name="tasks[]">
+                        @foreach($tasks as $task)
+                            <option
+                                    {{ $listTaskOfReport->contains($task->id) ? 'selected' : '' }}
+                                    value="{{$task->id}}" class="text-uppercase">
+                                {{$task->content}}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
-            </form>
-        </div>
-        <div class="app-sidebar sidebar-shadow">
-            <div class="scrollbar-sidebar">
-                <div class="app-sidebar__inner">
-                    <ul class="vertical-nav-menu">
-                        <li class="app-sidebar__heading"><a href="{{ route('admin') }}"
-                                                            class="text-info font-size-lg">Dashboards</a></li>
-                        <li>
-                            <a href="{{ route('report.index') }}">User</a>
-                            <a href="{{ route('report.index') }}">Customer</a>
-                            <a href="{{ route('report.index') }}">report</a>
-                            <a href="{{ route('report.index') }}">Report</a>
-                            <a href="#">Task</a>
-                            <a href="#">Feedback</a>
-                        </li>
-                        <li>
-                            <a href="#">Report-Task</a>
-                        </li>
-                    </ul>
+                <div class="container-fluid  button-submit-edit d-flex justify-content-center mt-2">
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <a class="btn btn-primary" href="{{ route('report.index') }}"> Back</a>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-
-</div>
-@yield('content')
-{{--@include('layout.footer')--}}
 @endsection
+

@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 </head>
 <body>
 <div class="app-container app-theme-white fixed-sidebar fixed-header">
@@ -78,8 +77,14 @@
     </div>
 </div>
 
+
+<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/check.js') }}"></script>
 <script type="text/javascript" href="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" href="js/bootstrap.min.js"></script>
-{{--<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>--}}
+<script type="text/javascript" src="{{asset('js/jquery.checkboxall-1.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap.bundle.min')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery-3.3.1.slim.min')}}"></script>
+
 </body>
 </html>

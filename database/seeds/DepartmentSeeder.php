@@ -13,6 +13,7 @@ class DepartmentSeeder extends Seeder
     public function run()
     {
         DB::table('departments')->insert([
+            ['name' => 'Non-Department'],
             ['name' => 'Nhan su'],
             ['name' => 'Ky thuat'],
             ['name' => 'Ke toan'],

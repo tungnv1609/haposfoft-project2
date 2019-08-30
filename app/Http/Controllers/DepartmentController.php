@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
-use App\Role;
-use App\Feedback;
+use Doctrine\DBAL\Exception\DeadlockException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,12 +11,12 @@ use Config;
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
 use Illuminate\Support\Facades\DB;
 
-class FeedbackController extends Controller
+class DepartmentController extends Controller
 {
-    private $feedback;
-    public function __construct(Feedback $feedback)
+    private $department;
+    public function __construct(Department $department)
     {
-        $this->feedback = $feedback;
+        $this->department= $department;
 
     }
 
@@ -28,8 +27,8 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feedbacks = Feedback::paginate(3);
-        return view('admin.feedback.index',['list_feedback'=>$feedbacks]);
+        $departments = Department::paginate(5);
+        return view('admin.department.index', ['list_department' => $departments]);
     }
 
     /**
@@ -39,8 +38,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        return view('admin.feedback.create',compact('feedback'));
-
+        return view('admin.department.create',compact('department'));
     }
 
     /**
@@ -52,12 +50,12 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'content' => 'required',
+            'name' => 'required',
         ]);
 
-        Feedback::create($request->all());
-        return redirect()->route('feedback.index')
-            ->with('success', 'Feedback created successfully.');
+        Department::create($request->all());
+        return redirect()->route('department.index')
+            ->with('success', 'Department created successfully.');
     }
 
     /**
@@ -68,7 +66,7 @@ class FeedbackController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -77,9 +75,9 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Department $department)
     {
-        //
+        return view('admin.department.edit',compact('department'));
     }
 
     /**
@@ -89,9 +87,16 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Department $department)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $department->update($request->all());
+
+        return redirect()->route('department.index')
+            ->with('success','Product updated successfully');
     }
 
     /**
@@ -100,11 +105,11 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Feedback $feedback)
+    public function destroy(Department $department)
     {
-        $feedback->delete();
+        $department->delete();
 
-        return redirect()->route('feedback.index')
-            ->with('success','Feedback deleted successfully');
+        return redirect()->route('department.index')
+            ->with('success','Department deleted successfully');
     }
 }

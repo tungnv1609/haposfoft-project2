@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('updated_by')->nullable();
             $table->string('delete_by')->nullable();
             $table->rememberToken();
-            $table->string('delete_at')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');

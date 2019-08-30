@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
-use App\Role;
-use App\Feedback;
+use App\Permission;
+use Doctrine\DBAL\Exception\DeadlockException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,15 +11,14 @@ use Config;
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
 use Illuminate\Support\Facades\DB;
 
-class FeedbackController extends Controller
+class PermissionController extends Controller
 {
-    private $feedback;
-    public function __construct(Feedback $feedback)
+    private $permission;
+    public function __construct(Permission $permission)
     {
-        $this->feedback = $feedback;
+        $this->permission= $permission;
 
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +26,8 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feedbacks = Feedback::paginate(3);
-        return view('admin.feedback.index',['list_feedback'=>$feedbacks]);
+        $permissions = Permission::paginate(8);
+        return view('admin.permission.index', ['list_permission' => $permissions]);
     }
 
     /**
@@ -39,8 +37,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        return view('admin.feedback.create',compact('feedback'));
-
+        return view('admin.permission.create',compact('permission'));
     }
 
     /**
@@ -52,12 +49,12 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'content' => 'required',
+            'name' => 'required',
         ]);
 
-        Feedback::create($request->all());
-        return redirect()->route('feedback.index')
-            ->with('success', 'Feedback created successfully.');
+        Permission::create($request->all());
+        return redirect()->route('permission.index')
+            ->with('success', 'Permission created successfully.');
     }
 
     /**
@@ -68,7 +65,6 @@ class FeedbackController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -77,9 +73,10 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('admin.permission.edit',compact('permission'));
+
     }
 
     /**
@@ -89,9 +86,17 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Permission $permission)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'note' => 'required',
+        ]);
+
+        $permission->update($request->all());
+
+        return redirect()->route('permission.index')
+            ->with('success','Permission updated successfully');
     }
 
     /**
@@ -100,11 +105,11 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Feedback $feedback)
+    public function destroy(Permission $permission)
     {
-        $feedback->delete();
+        $permission->delete();
 
-        return redirect()->route('feedback.index')
-            ->with('success','Feedback deleted successfully');
+        return redirect()->route('permission.index')
+            ->with('success','Permission deleted successfully');
     }
 }

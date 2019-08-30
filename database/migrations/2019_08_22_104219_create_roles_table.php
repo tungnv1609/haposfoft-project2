@@ -17,10 +17,10 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->text('name');
             $table->text('note');
-            $table->string('create_by', 50)->nullable();
-            $table->string('update_by', 50)->nullable();
-            $table->string('delete_by', 50)->nullable();
-            $table->datetime('delete_at')->nullable();
+            $table->string('created_by', 50)->nullable();
+            $table->string('updated_by', 50)->nullable();
+            $table->string('deleted_by', 50)->nullable();
+            $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

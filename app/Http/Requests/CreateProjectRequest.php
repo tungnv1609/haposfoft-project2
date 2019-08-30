@@ -26,9 +26,9 @@ class CreateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required',
-            'name' => 'required',
-            'detail' => 'required',
+            'name' => 'required|max:50',
+            'detail' => 'required|max:100',
+            'created_by' => 'required|max:50',
         ];
     }
 }

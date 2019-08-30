@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('home')
 
-@section('content')
-    <div class="row mt-3  d-flex justify-content-center show-data mt-5">
-        <div class="card show-user">
+@section('sidebar')
+    <div class="row mt-3 show-data mt-5 d-flex justify-content-center">
+        <div class="card show-user   ">
             <div class="card-header">Info data</div>
             <div class="card-body">
                 <div class="col-xs-12 col-sm-12 col-md-12 bg-light text-info">
@@ -41,13 +41,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-{{--        <div class="data-avatar container-avatar">--}}
-{{--            <img src="{{$url_avatar}}" alt="img avatar">--}}
-{{--        </div>--}}
-        <div class="container-fluid d-flex justify-content-center mt-3 mb-4">
-            <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
         </div>
     </div>
+
 @endsection
 
